@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
 {
@@ -46,7 +44,7 @@ public class PlayerMovementScript : MonoBehaviour
         Forward *= speed;
         WheelFL.steerAngle = maxSteerAngle * Turn;
         WheelFR.steerAngle = maxSteerAngle * Turn;
-        Debug.Log(Forward);
+
         currentSpeed = 2 * 22 / 7 * WheelBL.radius * WheelBL.rpm * 60 / 1000; //formula for calculating speed in kmph
 
         if (currentSpeed < topSpeed)
