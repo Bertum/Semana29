@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementScript : MonoBehaviour {
+public class PlayerMovementScript : MonoBehaviour
+{
 
     //FL = FrontLeft
     //FR = FrontRight
@@ -23,7 +24,7 @@ public class PlayerMovementScript : MonoBehaviour {
     public float maxSteerAngle = 45f;
     public float currentSpeed;
     public float maxBrakeTorque = 2200;
-
+    public float speed = 6;
 
     private float Forward;//forward axis
     private float Turn;//turn axis
@@ -32,22 +33,24 @@ public class PlayerMovementScript : MonoBehaviour {
     private Rigidbody rb;//rigid body of car
 
 
-    void Start() {
+    void Start()
+    {
         rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate() //fixed update is more physics realistic
     {
-        Forward = Input.GetAxis("Vertical");
+        Forward = -Input.GetAxis("Vertical");
         Turn = Input.GetAxis("Horizontal");
         Brake = Input.GetAxis("Jump");
-
+        Forward *= speed;
         WheelFL.steerAngle = maxSteerAngle * Turn;
         WheelFR.steerAngle = maxSteerAngle * Turn;
-
+        Debug.Log(Forward);
         currentSpeed = 2 * 22 / 7 * WheelBL.radius * WheelBL.rpm * 60 / 1000; //formula for calculating speed in kmph
 
-        if (currentSpeed < topSpeed) {
+        if (currentSpeed < topSpeed)
+        {
             WheelBL.motorTorque = maxTorque * Forward;//run the wheels on back left and back right
             WheelBR.motorTorque = maxTorque * Forward;
         }//the top speed will not be accurate but will try to slow the car before top speed
